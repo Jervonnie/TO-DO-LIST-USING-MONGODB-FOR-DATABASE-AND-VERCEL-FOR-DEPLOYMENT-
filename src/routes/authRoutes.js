@@ -1,6 +1,13 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { register, login } = require('../controllers/authController');
+const { register, login } = require("../controllers/authController");
+
+/**
+ * @swagger
+ * tags:
+ *   name: Auth
+ *   description: User authentication
+ */
 
 /**
  * @swagger
@@ -14,14 +21,23 @@ const { register, login } = require('../controllers/authController');
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - username
+ *               - password
  *             properties:
  *               username:
  *                 type: string
+ *                 example: testuser
  *               password:
  *                 type: string
- *             required: [username, password]
+ *                 example: secret123
+ *     responses:
+ *       201:
+ *         description: User registered successfully
+ *       400:
+ *         description: Validation error
  */
-router.post('/register', register);
+router.post("/register", register);
 
 /**
  * @swagger
@@ -35,13 +51,22 @@ router.post('/register', register);
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - username
+ *               - password
  *             properties:
  *               username:
  *                 type: string
+ *                 example: testuser
  *               password:
  *                 type: string
- *             required: [username, password]
+ *                 example: secret123
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *       401:
+ *         description: Invalid credentials
  */
-router.post('/login', login);
+router.post("/login", login);
 
 module.exports = router;
